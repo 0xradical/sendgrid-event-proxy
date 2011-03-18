@@ -29,7 +29,7 @@ class SendgridEvent < ActiveRecord::Base
   
   def url_to_post
     # inferir url através de category
-    url = "http://example.org"
+    url = "http://localhost:3000/sendgrid_event"
   end
   
   def perform
