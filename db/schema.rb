@@ -28,15 +28,17 @@ ActiveRecord::Schema.define(:version => 20110318003629) do
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "sendgrid_events", :force => true do |t|
-    t.string "event"
-    t.string "email"
-    t.string "category"
-    t.string "reason"
-    t.string "response"
-    t.string "attempt"
-    t.string "type"
-    t.string "status"
-    t.string "url"
+    t.string   "event"
+    t.string   "email"
+    t.string   "category"
+    t.string   "reason"
+    t.string   "response"
+    t.string   "attempt"
+    t.string   "type"
+    t.string   "status"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
