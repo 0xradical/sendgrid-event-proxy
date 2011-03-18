@@ -31,6 +31,7 @@ GEM
     arel (2.0.9)
     awesome_print (0.3.2)
     builder (2.1.2)
+    curb (0.7.8)
     daemons (1.1.0)
     delayed_job (2.1.0.pre2)
       activesupport (~> 3.0)
@@ -75,6 +76,7 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  curb
   delayed_job (= 2.1.0.pre2)
   mysql2
   rails (= 3.0.3)

@@ -12,7 +12,11 @@ class SendgridController < ApplicationController
     render :nothing => true
   end
   
-  # para testar:
+  # Curl:
   # curl -D - -d "event=processed&email=test" http://localhost:3000/sendgrid_event
+  #
+  # Curb:   
+  # Curl::Easy::http_post("http://localhost:3000/sendgrid_event","event=processed&email=test")
+  
   
 end
