@@ -29,6 +29,7 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     arel (2.0.9)
+    awesome_print (0.3.2)
     builder (2.1.2)
     daemons (1.1.0)
     delayed_job (2.1.0.pre2)
@@ -73,6 +74,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   delayed_job (= 2.1.0.pre2)
   mysql2
   rails (= 3.0.3)
