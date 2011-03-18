@@ -1,0 +1,1 @@
+sudo "monit -g #{app}_workers restart all"

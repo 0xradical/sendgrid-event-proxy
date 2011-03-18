@@ -1,0 +1,12 @@
+<% NUMBER_OF_WORKERS = 1 %>
+
+<% (0..(NUMBER_OF_WORKERS-1)).each do |worker_number| %>
+
+check process <%= @worker_name %>.<%= worker_number %>
+  with pidfile /data/<%= @app_name %>/shared/pids/delayed_job.<%= worker_number %>.pid
+  start program = "/bin/sh -c 'cd /data/<%= @app_name %>/current && /usr/bin/env script/delayed_job -e <%= @rails_env %> -i <%= worker_number %> start'" as uid <%= @user %> and gid <%= @user %>
+  stop program = "/bin/sh -c 'cd /data/<%= @app_name %>/current && /usr/bin/env  script/delayed_job -i <%= worker_number %> stop'" as uid <%= @user %> and gid <%= @user %>
+  if totalmem is greater than 300 MB for 10 cycles then restart  # eating up memory?
+  group <%= @worker_group_name %>
+
+<% end %>

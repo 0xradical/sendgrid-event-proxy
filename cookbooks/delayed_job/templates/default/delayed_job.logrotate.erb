@@ -1,0 +1,11 @@
+/data/<%= @app_name %>/shared/log/delayed_job.log {
+  daily
+  missingok
+  dateext
+  rotate 30
+  compress
+  notifempty
+  sharedscripts
+  extension gz
+  copytruncate
+}
