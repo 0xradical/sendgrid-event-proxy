@@ -1,0 +1,7 @@
+development:
+  adapter: mysql2
+  database: sendgrid_event_proxy
+  username: root
+  password:
+  host: localhost
+  socket: /tmp/mysql.sock
