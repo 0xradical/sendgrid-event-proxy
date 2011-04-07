@@ -1,0 +1,14 @@
+one:
+  event: "processed"
+  email: "<thiago@mailinator.com>"
+  category: "ita.br#inviter"
+  reason: "reason"
+  response: "response"
+  attempt: "attempt"
+  event_type: "type"
+  status: "status"
+  url: "url.com.br"
+  created_at: 2011-04-01 10:30:00.083465 Z
+  updated_at: 2011-04-07 21:50:20.020744 Z
+   
+              

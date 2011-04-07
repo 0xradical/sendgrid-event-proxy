@@ -1,6 +1,14 @@
 development:
   adapter: mysql2
-  database: sendgrid_event_proxy
+  database: sendgrid_event_proxy_development
+  username: root
+  password:
+  host: localhost
+  socket: /tmp/mysql.sock
+
+test:
+  adapter: mysql2
+  database: sendgrid_event_proxy_test
   username: root
   password:
   host: localhost

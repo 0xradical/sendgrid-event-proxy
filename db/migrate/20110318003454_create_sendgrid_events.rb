@@ -7,7 +7,7 @@ class CreateSendgridEvents < ActiveRecord::Migration
       table.string :reason  
       table.string :response
       table.string :attempt  
-      table.string :type   
+      table.string :event_type   
       table.string :status
       table.string :url
       table.timestamps      

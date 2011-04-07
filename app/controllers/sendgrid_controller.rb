@@ -4,7 +4,9 @@ class SendgridController < ApplicationController
   
   def event
     begin
-      sendgrid_params = request.request_parameters.merge({:created_at => Time.now})
+      sendgrid_params = request.request_parameters
+      sendgrid_params.merge!({:created_at => Time.now})
+      sendgrid_params.merge!({:event_type => sendgrid_params.delete(:type)}) if sendgrid_params[:type]
       SendgridEvent.create(sendgrid_params)
     rescue
       nil

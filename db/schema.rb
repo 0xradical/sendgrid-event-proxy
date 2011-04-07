@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(:version => 20110318003629) do
     t.string   "reason"
     t.string   "response"
     t.string   "attempt"
-    t.string   "type"
+    t.string   "event_type"
     t.string   "status"
     t.string   "url"
     t.datetime "created_at"

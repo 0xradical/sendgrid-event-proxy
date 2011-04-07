@@ -14,13 +14,14 @@ class SendgridEvent < ActiveRecord::Base
                         'reason',
                         'response',
                         'attempt',
-                        'type',
+                        'event_type',
                         'status',
                         'url']
      sendgrid_data = sendgrid_columns.map do |variable|
        sendgrid_value = self.send(variable)
        "#{variable}=#{sendgrid_value}" if sendgrid_value
      end.compact.join('&')
+     URI.escape(sendgrid_data)
   end
   
   def normalize_email
