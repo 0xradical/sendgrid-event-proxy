@@ -45,6 +45,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mocha (0.9.8)
+      rake
     mysql2 (0.2.6)
     polyglot (0.3.1)
     rack (1.2.2)
@@ -78,5 +80,6 @@ DEPENDENCIES
   awesome_print
   curb
   delayed_job (= 2.1.0.pre2)
+  mocha
   mysql2
   rails (= 3.0.3)

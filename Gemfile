@@ -6,6 +6,7 @@ gem 'curb'
 gem "delayed_job", "2.1.0.pre2"
 
 
-group :development do
+group :development, :test do
 	gem 'awesome_print'
+	gem 'mocha'
 end
