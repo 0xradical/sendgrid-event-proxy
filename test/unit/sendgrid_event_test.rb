@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class SendgridEventTest < ActiveSupport::TestCase
-  fixtures :sendgrid_events
-  
-  def setup
-    @sendgrid_event = sendgrid_events(:one)
-  end
   
   test "email normalization" do
     sendgrid_event = SendgridEvent.new(:email => "<thiago@mailinator.com>")
@@ -34,6 +29,21 @@ class SendgridEventTest < ActiveSupport::TestCase
   test "url_to_post" do
     sendgrid_event = SendgridEvent.new(:category => "url#model")
     assert_equal(sendgrid_event.url_to_post, "url/sendgrid_event")
+  end
+  
+  test "enqueuing/dequeuing sendgrid event" do
+    assert_difference('Delayed::Job.count') do
+      SendgridEvent.create(:email => "email@email.com")
+    end
+  end
+  
+  test "delayed job perform method" do
+    sendgrid_event_without_category = SendgridEvent.create(:email => "email@email.com")
+    assert((not sendgrid_event_without_category.perform))
+    
+    Curl::Easy.stubs(:http_post).returns(true)
+    sendgrid_event = SendgridEvent.create(:email => "email@email.com", :category => "url#model")
+    assert(sendgrid_event.perform)
   end
   
 end
