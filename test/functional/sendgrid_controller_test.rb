@@ -31,6 +31,7 @@ class SendgridControllerTest < ActionController::TestCase
     sendgrid_params = assigns(:sendgrid_params)
     assert_nil(sendgrid_params['type'])
     assert_not_nil(sendgrid_params['event_type'])
+    assert_equal(sendgrid_params['event_type'],"value")
   end
   
   test "any post without email field should fail on event creation" do

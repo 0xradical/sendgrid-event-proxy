@@ -7,7 +7,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 SendgridEvent.create({
-  :email    => "<paulosperchek@gmail.com>",
+  :email    => "<paul@mailinator.com>",
   :event    => "processed",
-  :category => "unisa#inviter"
+  :category => "example.com.br#inviter"
 })
