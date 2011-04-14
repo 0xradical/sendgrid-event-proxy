@@ -3,59 +3,48 @@
 # Recipe:: default
 #
 
-#
-# Cookbook Name:: delayed_job
-# Recipe:: default
-#
+app_name = "sendgrid_event_proxy"
+framework_env = node[:environment][:framework_env]
 
-# run DelayedJob worker on app instances
-if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
-  apps = node[:applications].keys #apps = ['indicaalumni']
-  framework_env = node[:environment][:framework_env]
- 
-  template "/etc/logrotate.d/delayed_job" do
-    owner "root"
-    group "root"
-    mode 0755
-    source "delayed_job.logrotate.erb"
-    action :create
-  end
+template "/etc/logrotate.d/delayed_job" do
+  owner "root"
+  group "root"
+  mode 0755
+  source "delayed_job.logrotate.erb"
+  action :create
+end
 
-  apps.each do |app_name|
-    base_worker_name = "#{app_name}"
-    worker_group_name = "#{app_name}_workers"
+base_worker_name      = "#{app_name}"
+worker_group_name     = "#{base_worker_name}_workers"
+monitrc_file_basename = "delayed_job_#{app_name}"
+monitrc_directory     = "/etc/monit.d"
 
-    directory "/data/#{app_name}/shared/pids" do
-      owner node[:owner_name]
-      group node[:owner_name]
-      mode 0755
-    end
+directory "/data/#{app_name}/shared/pids" do
+  owner node[:owner_name]
+  group node[:owner_name]
+  mode 0755
+end
 
-    execute "remove unused monitrc files for delayed job" do
-      user 'root'
-      command "rm -f /etc/monit.d/delayed_job_#{app_name}*.monitrc"
-    end
-    
-
-    template "/etc/monit.d/delayed_job_#{app_name}.monitrc" do
-      source "delayed_job_worker.monitrc.erb"
-      owner "root"
-      group "root"
-      mode 0644
-      variables({
-        :app_name => app_name,
-        :rails_env => framework_env,
-        :worker_name => base_worker_name,
-        :worker_group_name => worker_group_name,
-        :user => node[:owner_name],
-      })
-    end
-    
-  end
+execute "remove unused monitrc files for delayed job" do
+  user 'root'
+  command "rm -f #{monitrc_directory}/#{monitrc_file_basename}*.monitrc"
+end
   
-  execute "monit-reload-restart" do
-     command "sleep 30 && monit reload"
-     action :run
-  end
-  
+template "#{monitrc_directory}/#{monitrc_file_basename}.monitrc" do
+  source "delayed_job_worker.monitrc.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  variables({
+    :app_name => app_name,
+    :rails_env => framework_env,
+    :worker_name => base_worker_name,
+    :worker_group_name => worker_group_name,
+    :user => node[:owner_name],
+  })
+end
+
+execute "monit-reload-restart" do
+   command "sleep 30 && monit reload"
+   action :run
 end
