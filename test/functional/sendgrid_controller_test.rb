@@ -19,13 +19,7 @@ class SendgridControllerTest < ActionController::TestCase
     assert_equal(sendgrid_params['param_one'],"value_one")
     assert_equal(sendgrid_params['param_two'], "value_two")
   end
-  
-  test "has created_at timestamp" do
-    post :event, 'email' => "thiago@mailinator.com",  'category' => "url#model"
-    sendgrid_params = assigns(:sendgrid_params)
-    assert_not_nil(sendgrid_params['created_at'])
-  end
-  
+    
   test "change type to event_type" do
     post :event, 'type' => "value"
     sendgrid_params = assigns(:sendgrid_params)
