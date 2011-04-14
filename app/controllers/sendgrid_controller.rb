@@ -1,11 +1,8 @@
-class SendgridController < ApplicationController
-  
-  skip_before_filter :verify_authenticity_token
+class SendgridController < ActionController::Base
   
   def event
     begin
       @sendgrid_params = request.request_parameters
-      @sendgrid_params.merge!({"created_at" => Time.now})
       @sendgrid_params.merge!({"event_type" => @sendgrid_params.delete("type")}) if @sendgrid_params["type"]
       @sendgrid_event = SendgridEvent.create(@sendgrid_params)
     rescue
