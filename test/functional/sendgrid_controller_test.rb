@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SendgridControllerTest < ActionController::TestCase
   
-  test "any response should be OK" do
+  test "any response to POST event requests should be OK" do
     post :event
     assert_response :success
     
@@ -11,6 +11,8 @@ class SendgridControllerTest < ActionController::TestCase
     
     post :event, 'email' => "thiago@mailinator.com",  'category' => "url#model"
     assert_response :success
+    
+    assert_template nil
   end
   
   test "request parameters" do
@@ -38,5 +40,5 @@ class SendgridControllerTest < ActionController::TestCase
    sendgrid_event = assigns(:sendgrid_event)
    assert_not_nil(sendgrid_event)
   end
-  
+    
 end
