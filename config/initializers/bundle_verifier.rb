@@ -1,0 +1,1 @@
+raise "Foo" if %x(bundle show curb) =~ /curb/

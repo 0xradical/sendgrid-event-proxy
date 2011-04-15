@@ -1,2 +1,0 @@
-raise "Deployment aborted: the gem capta is probably pointing to the vendor application folder " +
-                        "when it should be pointing to the git repository. Check your Gemfile and retry."
