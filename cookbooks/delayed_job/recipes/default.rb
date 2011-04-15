@@ -16,8 +16,6 @@ if node[:instance_role] == "solo" || (node[:instance_role] == "util" && node[:na
       action :create
     end
 
-    base_worker_name      = "#{app_name}"
-    worker_group_name     = "#{base_worker_name}_workers"
     monitrc_file_basename = "delayed_job_#{app_name}"
     monitrc_directory     = "/etc/monit.d"
 
@@ -34,9 +32,6 @@ if node[:instance_role] == "solo" || (node[:instance_role] == "util" && node[:na
       variables({
         :app_name => app_name,
         :framework_env => node[:environment][:framework_env],
-        :worker_name => base_worker_name,
-        :worker_group_name => worker_group_name,
-        :user => node[:owner_name],
       })
     end
 

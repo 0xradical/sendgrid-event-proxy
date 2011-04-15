@@ -2,11 +2,11 @@
 
 <% (0..(NUMBER_OF_WORKERS-1)).each do |worker_number| %>
 
-check process <%= @worker_name %>.<%= worker_number %>
-  with pidfile /var/run/engineyard/dj/<%= @app_name %>/delayed_job.<%= worker_number %>.pid
-  start program = "/engineyard/bin/dj <%= @app_name %> start <%= @framework_env %> <%= @worker_name %>" with timeout 60 seconds
-  stop program = "/engineyard/bin/dj <%= @app_name %> stop <%= @framework_env %> <%= @worker_name %>" with timeout 60 seconds
+check process <%= @app_name %>_<%= worker_number %>
+  with pidfile /var/run/engineyard/dj/<%= @app_name %>/dj_<%= @app_name %>_<%= worker_number %>.pid
+  start program = "/engineyard/bin/dj <%= @app_name %> start <%= @framework_env %> <%= @app_name %>_<%= worker_number %>" with timeout 60 seconds
+  stop program = "/engineyard/bin/dj <%= @app_name %> stop <%= @framework_env %> <%= @app_name %>_<%= worker_number %>" with timeout 60 seconds
   if totalmem is greater than 300 MB for 10 cycles then restart  # eating up memory?
-  group <%= @worker_group_name %>
+  group <%= @app_name %>_workers
   
 <% end %>
