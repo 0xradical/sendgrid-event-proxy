@@ -4,6 +4,7 @@ class SendgridController < ActionController::Base
     begin
       @sendgrid_params = request.request_parameters
       @sendgrid_params.merge!({"event_type" => @sendgrid_params.delete("type")}) if @sendgrid_params["type"]
+      @sendgrid_params.delete_if{|key,value| not SendgridEvent::SENDGRID_ATTRIBUTES.include?(key) }
       @sendgrid_event = SendgridEvent.create(@sendgrid_params)
     rescue
       @sendgrid_event = nil

@@ -3,21 +3,23 @@ class SendgridEvent < ActiveRecord::Base
   before_save  :normalize_email
   after_create :queue
   
+  SENDGRID_ATTRIBUTES = ['event',
+                         'email',
+                         'category',
+                         'reason',
+                         'response',
+                         'attempt',
+                         'event_type',
+                         'status',
+                         'url',
+                         'timestamp']
+  
   def queue
     Delayed::Job.enqueue(self)
   end
     
   def to_ampersand_separated_s
-    sendgrid_columns = ['event',
-                        'email',
-                        'category',
-                        'reason',
-                        'response',
-                        'attempt',
-                        'event_type',
-                        'status',
-                        'url']
-     sendgrid_data = sendgrid_columns.map do |variable|
+     sendgrid_data = SENDGRID_ATTRIBUTES.map do |variable|
        sendgrid_value = self.send(variable)
        "#{variable}=#{sendgrid_value}" if sendgrid_value
      end.compact.join('&')

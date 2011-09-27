@@ -16,10 +16,10 @@ class SendgridControllerTest < ActionController::TestCase
   end
   
   test "request parameters" do
-    post :event, 'param_one' => "value_one", 'param_two' => "value_two"
+    post :event, 'event' => "value_one", 'non_existing_attribute' => "value_two"
     sendgrid_params = assigns(:sendgrid_params)
-    assert_equal(sendgrid_params['param_one'],"value_one")
-    assert_equal(sendgrid_params['param_two'], "value_two")
+    assert_equal(sendgrid_params['event'],"value_one")
+    assert_equal(sendgrid_params['non_existing_attribute'], nil)
   end
     
   test "change type to event_type" do
